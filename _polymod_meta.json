@@ -1,0 +1,17 @@
+{
+  "title": "Friendly Reminder",
+  "description": "This mod friendly reminds you when you're signed out of newgrounds!",
+  "api_version": "0.7.5",
+  "mod_version": "0.1.0",
+  "license": "MIT",
+
+  "contributors": [
+    {
+      "name": "CrusherNotDrip",
+      "description": "Play my UiNotDrip.",
+      "role": "Programmer",
+      "email": "crushernotdrip@tilnotdrip.org",
+			"url": "https://crushernotdrip.tilnotdrip.org/"
+    }
+  ]
+}

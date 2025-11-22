@@ -1,0 +1,55 @@
+import flixel.addons.display.FlxBackdrop;
+import flixel.tweens.FlxTween;
+import flixel.FlxG;
+import funkin.audio.FunkinSound;
+import funkin.modding.module.Module;
+import funkin.ui.mainmenu.MainMenuState;
+import StringTools;
+
+class FriendlyReminder extends Module
+{
+    public function new()
+    {
+        super('friendlyReminder', 1000, {
+            state: MainMenuState
+        });
+    }
+
+    override public function onStateChangeEnd(event:StateChangeScriptEvent):Void
+    {
+        super.onStateChangeEnd(event);
+
+        if (!isLoggedIn())
+        {
+            var alertBg:FlxBackdrop = new FlxBackdrop(Paths.image('wuhoh'), 0x11, 10, 10);
+            alertBg.zIndex = 5762198512657;
+            alertBg.scrollFactor.set(0, 0);
+            event.targetState.add(alertBg);
+
+            FlxTween.tween(alertBg, {alpha: 0}, 0.2, {type: 4});
+
+            var alarm:FunkinSound = FunkinSound.load(Paths.sound('alarm'), 1, true);
+            alarm.play();
+        }
+    }
+
+    override public function onUpdate(event:UpdateScriptEvent):Void
+    {
+        if (!isLoggedIn())
+        {
+            FlxG.camera.shake(0.02, 0.1);
+        }
+
+        super.onUpdate(event);
+    }
+
+    function isLoggedIn():Bool
+    {
+        if (FlxG.state.leftWatermarkText == null || FlxG.state.leftWatermarkText.text == '' || FlxG.onMobile)
+        {
+            return true;
+        }
+
+        return StringTools.contains(FlxG.state.leftWatermarkText.text, "Newgrounds: Logged in as");
+    }
+}
